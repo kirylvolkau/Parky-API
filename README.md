@@ -13,6 +13,9 @@
 * Repository pattern used
 * DTO pattern used
 * `appsettings.json` file is excluded from project since it contains connection string for the SQL Server with password.
+* Authentication will be added.
+* Versioning will be added.
+* There will be second project added for the consumption of previously develope API.
 
 This project contains small API for information about national parks in the US.
 Currently it has endpoints for `CRUD` operations. `Automapper` is used to convert DTO
