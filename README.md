@@ -17,6 +17,6 @@
 This project contains small API for information about national parks in the US.
 Currently it has endpoints for `CRUD` operations. `Automapper` is used to convert DTO
 objects to the Models and vice versa. <br/>
-In migrations a simple database seeding is performed.
+In migrations a simple database seeding is performed. <br/>
 For documentation `Swagger` was used (with XML commenting): <br/>
 <img src="git-src/apidocs.png" />
