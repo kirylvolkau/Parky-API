@@ -18,7 +18,9 @@
 * There will be second project added for the consumption of previously developed API.
 
 This project contains small API for information about national parks in the US.
-Currently it has endpoints for `CRUD` operations. `Automapper` is used to convert DTO
+Currently it has endpoints for `CRUD` operations on National Parks and Trails. <br/>
+<img src="git-src/database.png" height=250px /> <br/>
+`Automapper` is used to convert DTO
 objects to the Models and vice versa. <br/>
 In migrations a simple database seeding is performed. <br/>
 For documentation `Swagger` was used (with XML commenting): <br/>

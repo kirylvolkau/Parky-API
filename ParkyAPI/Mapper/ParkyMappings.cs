@@ -10,6 +10,13 @@ namespace ParkyAPI.Mapper
         {
             CreateMap<NationalPark, NationalParkDto>();
             CreateMap<NationalParkDto, NationalPark>();
+            CreateMap<Trail, TrailDto>();
+            CreateMap<TrailDto, Trail>();
+            CreateMap<TrailUpdateDto, Trail>();
+            CreateMap<Trail, TrailUpdateDto>();
+            
+            CreateMap<TrailCreateDto, Trail>();
+            CreateMap<Trail, TrailCreateDto>();
         }
     }
 }

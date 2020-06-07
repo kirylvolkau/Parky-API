@@ -50,6 +50,11 @@ namespace ParkyAPI.Repository
         public bool DeleteNationalPark(NationalPark nationalPark)
         {
             _context.NationalParks.Remove(nationalPark);
+            var trails = _context.Trails.
+                Where(t => t.NationalParkId == nationalPark.Id).
+                ToList();
+            _context.Trails.RemoveRange(trails);
+            
             return Save();
         }
 
