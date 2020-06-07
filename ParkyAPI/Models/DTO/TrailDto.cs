@@ -4,7 +4,6 @@ namespace ParkyAPI.Models.DTO
 {
     public class TrailDto
     {
-        [Key]
         public int Id { get; set; }
         
         [Required]
