@@ -29,7 +29,7 @@ objects to the Models and vice versa. <br/>
 In migrations a simple database seeding is performed. <br/>
 For documentation `Swagger` was used (with XML commenting).<br/>
 Those are OpenAPI specs for versioning (version 2 was added for simple demonstration): <br/>
-**Version 1:** 
-<img src="git-src/apiv1.png" height=600 /> 
-**Version 2:** 
+**Version 1:** <br/>
+<img src="git-src/apiv1.png" height=600 /> <br/>
+**Version 2:** <br/>
 <img src="git-src/apiv2.png" height=300 /> <br/>
