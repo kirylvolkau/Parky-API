@@ -15,7 +15,9 @@
 * `appsettings.json` file is excluded from project since it contains connection string for the SQL Server with password.
 * Versioning used.
 * Some parts are simply commented so in future I can find them.
+
 <br/>
+
 * Authentication will be added.
 * There will be second project added for the consumption of previously developed API.
 
