@@ -8,5 +8,7 @@ namespace ParkyAPI.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         
         public DbSet<NationalPark> NationalParks { get; set; }
+        
+        public DbSet<Trail> Trails { get; set; }
     }
 }
