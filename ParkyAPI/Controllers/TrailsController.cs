@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkyAPI.Models;
 using ParkyAPI.Models.DTO;
@@ -8,7 +9,9 @@ using ParkyAPI.Repository.IRepository;
 namespace ParkyAPI.Controllers
 {
     [ApiController]
-    [Route("api/trails")]
+    [Route("api/v{version:apiVersion}/trails")]
+    // [Route("api/trails")]
+    //[ApiExplorerSettings(GroupName = "ParkyOpenAPISpecTr")]
     [ProducesResponseType(400)]
     public class TrailsController : ControllerBase
     {
@@ -81,7 +84,11 @@ namespace ParkyAPI.Controllers
                 return StatusCode(500, ModelState);
             }
 
-            return CreatedAtRoute("GetTrail", new {id = trail.Id}, trail);
+            return CreatedAtRoute("GetTrail", new
+            {
+                version = HttpContext.GetRequestedApiVersion().ToString(),
+                id = trail.Id
+            }, trail);
         }
         
         [HttpPatch("{id:int}", Name = "UpdateTrail")]
@@ -122,6 +129,18 @@ namespace ParkyAPI.Controllers
             }
 
             return NoContent();
+        }
+        /// <summary>
+        /// API endpoint to get all trails in some national park.
+        /// </summary>
+        /// <param name="id"> Id of the park.</param>
+        /// <returns></returns>
+        [HttpGet("parks/{id:int}", Name = "GetTrailsInNationalPark")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult GetTrailsInNationalPark(int id)
+        {
+            var listObj = _repo.GetTrailsInNationalPark(id);
+            return Ok(listObj);
         }
     }
 }

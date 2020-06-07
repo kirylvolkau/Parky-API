@@ -13,8 +13,10 @@
 * Repository pattern used
 * DTO pattern used
 * `appsettings.json` file is excluded from project since it contains connection string for the SQL Server with password.
+* Versioning used.
+* Some parts are simply commented so in future I can find them.
+<br/>
 * Authentication will be added.
-* Versioning will be added.
 * There will be second project added for the consumption of previously developed API.
 
 This project contains small API for information about national parks in the US.
@@ -23,5 +25,9 @@ Currently it has endpoints for `CRUD` operations on National Parks and Trails. <
 `Automapper` is used to convert DTO
 objects to the Models and vice versa. <br/>
 In migrations a simple database seeding is performed. <br/>
-For documentation `Swagger` was used (with XML commenting): <br/>
-<img src="git-src/apidocs.png" />
+For documentation `Swagger` was used (with XML commenting).<br/>
+Those are OpenAPI specs for versioning (version 2 was added for simple demonstration): <br/>
+**Version 1:** 
+<img src="git-src/apiv1.png" height=600 /> 
+**Version 2:** 
+<img src="git-src/apiv2.png" height=300 /> <br/>
