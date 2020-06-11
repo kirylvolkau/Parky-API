@@ -7,6 +7,10 @@
 4. Automapper: https://automapper.org/
 5. Swagger.AspNetCore Nouget package : https://swagger.io/
 6. Repo status : https://www.repostatus.org/
+7. `Toastr.js` : https://github.com/CodeSeven/toastr
+8. Sweet alert 2 : <https://sweetalert2.github.io/>
+9. Datatables : https://datatables.net/
+10. Bootstrap 3
 ## Description:
 
 * Code-first approach used
@@ -14,13 +18,32 @@
 * DTO pattern used
 * `appsettings.json` file is excluded from project since it contains connection string for the SQL Server with password.
 * Versioning used.
-* Some parts are simply commented so in future I can find them.
-
-<br/>
+* Some parts are simply commented so in future I can find and reuse them.
+* ASP.NET Core MVC project `ParkyWeb` is used for API consumption.
+**Upcoming:** <br/>
 
 * Authentication will be added.
-* There will be second project added for the consumption of previously developed API.
+* Localization will be added.
 
+## MVC part :
+* Currently it supports all API methods for National Parks. 
+* Parks are displayed in the table using `datatables`.
+* Parks can be added, deleted, updated. There are corresponding buttons for those actions.
+* After each action `toastr` alert is shown.
+* Before `DELETE` action `sweeralert2` asks you to confirm the deletion of a park.
+* When image is uploaded to the form it triggers `js` code updating picture on the page.
+**Workflow** : <br/>
+```f#
+data is displayed -> update/create button is clicked -> Upsert view defines whether this is update or create (by cheking id) -> form is displayed -> after action user returned to the updated database list.
+```
+```f#
+data is displayed -> delete button is clicked -> User is asked to confirm -> if successfull - table updates using AJAX.
+```
+All `NON-GET` (`PATCH`,`POST`,`DELETE`) requests to the API are sent using `Javascript`, as it is more convenient than using `HTTPClient` in the View. Also, it simplifies data processing in `js` afterwards. 
+<br/>
+![WAIT FOR GIF TO LOAD...](/git-src/parky.gif)
+
+## API part : 
 This project contains small API for information about national parks in the US.
 Currently it has endpoints for `CRUD` operations on National Parks and Trails. <br/>
 <img src="git-src/database.png" height=250px /> <br/>

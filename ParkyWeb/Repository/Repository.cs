@@ -43,8 +43,8 @@ namespace ParkyWeb.Repository
                 var json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<IEnumerable<T>>(json);
             }
+            client.Dispose();
             return null;
-
         }
 
         public async Task<bool> CreateAsync(string url, T objToCreate)

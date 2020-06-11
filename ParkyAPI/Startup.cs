@@ -116,6 +116,8 @@ namespace ParkyAPI
             }
 
             app.UseHttpsRedirection();
+            
+            app.UseCors("AllowAnyOrigin");
 
             app.UseSwagger();
 
