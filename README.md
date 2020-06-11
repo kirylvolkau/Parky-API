@@ -20,7 +20,7 @@
 * Versioning used.
 * Some parts are simply commented so in future I can find and reuse them.
 * ASP.NET Core MVC project `ParkyWeb` is used for API consumption.
-**Upcoming:** <br/>
+<br/> **Upcoming:** <br/>
 
 * Authentication will be added.
 * Localization will be added.
