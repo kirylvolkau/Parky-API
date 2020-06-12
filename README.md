@@ -42,6 +42,7 @@ data is displayed -> delete button is clicked -> User is asked to confirm -> if 
 All `NON-GET` (`PATCH`,`POST`,`DELETE`) requests to the API are sent using `Javascript`, as it is more convenient than using `HTTPClient` in the View. Also, it simplifies data processing in `js` afterwards. 
 <br/>
 ![WAIT FOR GIF TO LOAD...](/git-src/parky.gif)
+<br/>
 Similar workflow is correspondent for Trails.
 ## API part : 
 This project contains small API for information about national parks in the US.
