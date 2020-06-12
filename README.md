@@ -26,11 +26,11 @@
 * Localization will be added.
 
 ## MVC part :
-* Currently it supports all API methods for National Parks. 
-* Parks are displayed in the table using `datatables`.
-* Parks can be added, deleted, updated. There are corresponding buttons for those actions.
+* Currently it supports all API methods for National Parks and Trails. 
+* Parks and Trails are displayed in the table using `datatables`.
+* Parks and Trails can be added, deleted, updated. There are corresponding buttons for those actions.
 * After each action `toastr` alert is shown.
-* Before `DELETE` action `sweeralert2` asks you to confirm the deletion of a park.
+* Before `DELETE` action `sweeralert2` asks you to confirm the deletion of an object.
 * When image is uploaded to the form it triggers `js` code updating picture on the page.
 **Workflow** : <br/>
 ```f#
@@ -42,7 +42,7 @@ data is displayed -> delete button is clicked -> User is asked to confirm -> if 
 All `NON-GET` (`PATCH`,`POST`,`DELETE`) requests to the API are sent using `Javascript`, as it is more convenient than using `HTTPClient` in the View. Also, it simplifies data processing in `js` afterwards. 
 <br/>
 ![WAIT FOR GIF TO LOAD...](/git-src/parky.gif)
-
+Similar workflow is correspondent for Trails.
 ## API part : 
 This project contains small API for information about national parks in the US.
 Currently it has endpoints for `CRUD` operations on National Parks and Trails. <br/>
