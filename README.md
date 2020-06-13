@@ -35,7 +35,7 @@
 **Main page** : contains list of all national parks and trails, correspondent to them. <br/>
 <img src="git-src/main.png" height=500 />
 <br/>
-**Workflow** : <br/>
+**Workflow** : 
 ```f#
 data is displayed -> update/create button is clicked -> Upsert view defines whether this is update or create (by cheking id) -> form is displayed -> after action user returned to the updated database list.
 ```
