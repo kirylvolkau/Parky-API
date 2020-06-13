@@ -32,6 +32,9 @@
 * After each action `toastr` alert is shown.
 * Before `DELETE` action `sweeralert2` asks you to confirm the deletion of an object.
 * When image is uploaded to the form it triggers `js` code updating picture on the page.
+**Main page** : contains list of all national parks and trails, correspondent to them. <br/>
+<img src="git-src/main.png" height=500 />
+<br/>
 **Workflow** : <br/>
 ```f#
 data is displayed -> update/create button is clicked -> Upsert view defines whether this is update or create (by cheking id) -> form is displayed -> after action user returned to the updated database list.
