@@ -18,12 +18,13 @@
 * DTO pattern used
 * `appsettings.json` file is excluded from project since it contains connection string for the SQL Server with password.
 * Versioning used.
+* Authorization with JWT tokens added.
 * Some parts are simply commented so in future I can find and reuse them.
 * ASP.NET Core MVC project `ParkyWeb` is used for API consumption.
 <br/> **Upcoming:** <br/>
 
-* Authentication will be added.
 * Localization will be added.
+* MVC part for users will be added.
 
 ## MVC part :
 * Currently it supports all API methods for National Parks and Trails. 
@@ -49,10 +50,11 @@ Similar workflow is correspondent for Trails.
 This project contains small API for information about national parks in the US.
 Currently it has endpoints for `CRUD` operations on National Parks and Trails. <br/>
 <img src="git-src/database.png" height=250px /> <br/>
-`Automapper` is used to convert DTO
-objects to the Models and vice versa. <br/>
-In migrations a simple database seeding is performed. <br/>
-For documentation `Swagger` was used (with XML commenting).<br/>
+* `Automapper` is used to convert DTO objects to the Models and vice versa.
+* In migrations a simple database seeding is performed.
+* For documentation `Swagger` was used (with XML commenting).
+* For authentication JWT tokens were used with `Role` claims. It works only for the `GetTrail?id=`, since it was just simple demonstration.
+* Also, there was added functionality for registering and authenticating users using `POST` requests. Passwords are stored in non-encrypted from in the database for the simplicity. 
 Those are OpenAPI specs for versioning (version 2 was added for simple demonstration): <br/>
 **Version 1:** <br/>
 <img src="git-src/apiv1.png" height=600 /> <br/>

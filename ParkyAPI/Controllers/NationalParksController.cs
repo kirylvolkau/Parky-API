@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ParkyAPI.Models;
 using ParkyAPI.Models.DTO;
@@ -26,7 +27,9 @@ namespace ParkyAPI.Controllers
         /// Get list of all National Parks.
         /// </summary>
         /// <returns></returns>
+        
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(200,Type = typeof(List<NationalParkDto>))]
         public IActionResult GetNationalParks()
         {
@@ -44,6 +47,7 @@ namespace ParkyAPI.Controllers
         /// </summary>
         /// <param name="id">The id of a national park.</param>
         /// <returns></returns>
+        
         [HttpGet("{id:int}", Name = "GetNationalPark")]
         [ProducesResponseType(200,Type = typeof(NationalParkDto))]
         [ProducesResponseType(404)]
