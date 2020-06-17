@@ -57,6 +57,6 @@ Currently it has endpoints for `CRUD` operations on National Parks and Trails. <
 * Also, there was added functionality for registering and authenticating users using `POST` requests. Passwords are stored in non-encrypted from in the database for the simplicity. 
 Those are OpenAPI specs for versioning (version 2 was added for simple demonstration): <br/>
 **Version 1:** <br/>
-<img src="git-src/apiv1.png" height=600 /> <br/>
+<img src="git-src/apiv1.png" height=800 /> <br/>
 **Version 2:** <br/>
 <img src="git-src/apiv2.png" height=300 /> <br/>
