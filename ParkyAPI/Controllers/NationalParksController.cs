@@ -29,7 +29,6 @@ namespace ParkyAPI.Controllers
         /// <returns></returns>
         
         [HttpGet]
-        [Authorize]
         [ProducesResponseType(200,Type = typeof(List<NationalParkDto>))]
         public IActionResult GetNationalParks()
         {

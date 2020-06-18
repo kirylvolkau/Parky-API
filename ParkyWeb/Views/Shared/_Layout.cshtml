@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@using System;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor Accessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -20,13 +24,29 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="NationalParks" asp-action="Index">National Parks</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Trails" asp-action="Index">Trails</a>
-                        </li>
+                        @if (!string.IsNullOrEmpty((Accessor.HttpContext.Session.GetString("JWToken"))))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"  asp-controller="NationalParks" asp-action="Index">National Parks</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"  asp-controller="Trails" asp-action="Index">Trails</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"  asp-controller="Home" asp-action="Logout">Logout</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"  asp-controller="Home" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark"  asp-controller="Home" asp-action="Register">Register</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

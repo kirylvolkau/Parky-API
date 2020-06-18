@@ -1,0 +1,11 @@
+@model ParkyWeb.Models.User
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+<form method="POST" class="form-group">
+    <input type="text" asp-for="Username" placeholder="Username..." class="form-control">
+    <input type="password" asp-for="Password" placeholder="Password..." class="form-control">
+    <button type="submit" value="Submit" class="btn btn-success">Submit</button>
+</form>
