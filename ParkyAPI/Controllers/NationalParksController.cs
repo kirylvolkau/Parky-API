@@ -8,10 +8,9 @@ using ParkyAPI.Repository.IRepository;
 
 namespace ParkyAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/nationalparks")]
-    //Route("api/[controller]")]
-    //[ApiExplorerSettings(GroupName = "ParkyOpenAPISpecNP")]
     [ProducesResponseType(400)]
     public class NationalParksController : ControllerBase
     {
@@ -27,8 +26,8 @@ namespace ParkyAPI.Controllers
         /// Get list of all National Parks.
         /// </summary>
         /// <returns></returns>
-        
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(200,Type = typeof(List<NationalParkDto>))]
         public IActionResult GetNationalParks()
         {
@@ -51,6 +50,7 @@ namespace ParkyAPI.Controllers
         [ProducesResponseType(200,Type = typeof(NationalParkDto))]
         [ProducesResponseType(404)]
         [ProducesDefaultResponseType]
+        [AllowAnonymous]
         public IActionResult GetNationalPark(int id)
         {
             var park = _npRepo.GetNationalPark(id);
@@ -62,6 +62,7 @@ namespace ParkyAPI.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(201,Type = typeof(NationalParkDto))]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
@@ -94,6 +95,7 @@ namespace ParkyAPI.Controllers
         }
         
         [HttpPatch("{id:int}", Name = "UpdateNationalPark")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         public IActionResult UpdateNationalPark(int id, [FromBody] NationalParkDto nationalParkDto)
@@ -113,7 +115,14 @@ namespace ParkyAPI.Controllers
             return NoContent();
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        
         [HttpDelete("{id:int}", Name = "DeleteNationalPark")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
         public IActionResult DeleteNationalPark(int id)
@@ -133,5 +142,7 @@ namespace ParkyAPI.Controllers
             return NoContent();
         }
     }
+    
+    
     
 }

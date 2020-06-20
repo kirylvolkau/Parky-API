@@ -10,6 +10,7 @@ using ParkyAPI.Repository.IRepository;
 namespace ParkyAPI.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/v{version:apiVersion}/trails")]
     // [Route("api/trails")]
     //[ApiExplorerSettings(GroupName = "ParkyOpenAPISpecTr")]
@@ -29,6 +30,7 @@ namespace ParkyAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(200,Type = typeof(List<NationalParkDto>))]
         public IActionResult GetTrails()
         {
@@ -49,8 +51,8 @@ namespace ParkyAPI.Controllers
         [HttpGet("{id:int}", Name = "GetTrail")]
         [ProducesResponseType(200,Type = typeof(NationalParkDto))]
         [ProducesResponseType(404)]
+        [AllowAnonymous]
         [ProducesDefaultResponseType]
-        [Authorize(Roles = "Admin")]
         public IActionResult GetTrail(int id)
         {
             var trail = _repo.GetTrail(id);
@@ -65,6 +67,7 @@ namespace ParkyAPI.Controllers
         [ProducesResponseType(201,Type = typeof(TrailDto))]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
+        [Authorize(Roles = "Admin")]
         public IActionResult CreateTrail([FromBody] TrailCreateDto trailDto)
         {
             if (trailDto is null)
@@ -96,6 +99,7 @@ namespace ParkyAPI.Controllers
         [HttpPatch("{id:int}", Name = "UpdateTrail")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateTrail(int id, [FromBody] TrailUpdateDto trailDto)
         {
             if (trailDto is null || id!=trailDto.Id)
@@ -116,6 +120,7 @@ namespace ParkyAPI.Controllers
         [HttpDelete("{id:int}", Name = "DeleteTrail")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
+        [Authorize(Roles = "Admin")]
         public IActionResult DeleteTrail(int id)
         {
             if (!_repo.TrailExists(id))
@@ -139,6 +144,7 @@ namespace ParkyAPI.Controllers
         /// <returns></returns>
         [HttpGet("parks/{id:int}", Name = "GetTrailsInNationalPark")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [AllowAnonymous]
         public IActionResult GetTrailsInNationalPark(int id)
         {
             var listObj = _repo.GetTrailsInNationalPark(id);
