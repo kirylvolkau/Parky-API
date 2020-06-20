@@ -41,7 +41,7 @@ All `NON-GET` (`PATCH`,`POST`,`DELETE`) requests to the API are sent using `Java
 <br/>
 Moreover, Cookies were added + for editing / deleting parks and trails user should be authorized.
 <br/>
-![WAIT FOR GIF TO LOAD...](/git-src/parky.gif)
+![WAIT FOR GIF TO LOAD...](/git-src/workflow.gif)
 <br/>
 Similar workflow is correspondent for Trails. <br/>
 ## API part : 
@@ -55,6 +55,6 @@ Currently it has endpoints for `CRUD` operations on National Parks and Trails. <
 * Also, there was added functionality for registering and authenticating users using `POST` requests. Passwords are stored in non-encrypted from in the database for the simplicity. 
 Those are OpenAPI specs for versioning (version 2 was added for simple demonstration): <br/>
 **Version 1:** <br/>
-<img src="git-src/apiv1.png" height=800 /> <br/>
+<img src="git-src/apiv1.png" /> <br/>
 **Version 2:** <br/>
-<img src="git-src/apiv2.png" height=300 /> <br/>
+<img src="git-src/apiv2.png"  /> <br/>
