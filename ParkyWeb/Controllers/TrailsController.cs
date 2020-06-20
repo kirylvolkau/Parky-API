@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ParkyWeb.Models;
 using ParkyWeb.Models.ViewModels;
@@ -26,9 +28,10 @@ namespace ParkyWeb.Controllers
             return View(new TrailsViewModel());
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Upsert(int? id)
         {
-            IEnumerable<NationalPark> npList = await _parks.GetAllAsync(Globals.ApiNpUrl);
+            IEnumerable<NationalPark> npList = await _parks.GetAllAsync(Globals.ApiNpUrl,HttpContext.Session.GetString("JWToken"));
             TrailsViewModel trailVM = new TrailsViewModel()
             {
                 NationalParkList = npList.Select(i => new Microsoft.AspNetCore.Mvc.Rendering.SelectListItem
@@ -43,7 +46,7 @@ namespace ParkyWeb.Controllers
                 return View(trailVM);
             }
 
-            trailVM.Trail = await _trails.GetAsync(Globals.ApiTrialUrl, id.GetValueOrDefault());
+            trailVM.Trail = await _trails.GetAsync(Globals.ApiTrialUrl, id.GetValueOrDefault(), HttpContext.Session.GetString("JWToken"));
             if (trailVM.Trail is null)
             {
                 return NotFound();
@@ -53,6 +56,7 @@ namespace ParkyWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Upsert(TrailsViewModel trailVM)
         {
@@ -60,11 +64,11 @@ namespace ParkyWeb.Controllers
             {
                 if (trailVM.Trail.Id == 0)
                 {
-                    await _trails.CreateAsync(Globals.ApiTrialUrl, trailVM.Trail);
+                    await _trails.CreateAsync(Globals.ApiTrialUrl, trailVM.Trail,HttpContext.Session.GetString("JWToken"));
                 }
                 else
                 {
-                    await _trails.UpdateAsync(Globals.ApiTrialUrl, trailVM.Trail, trailVM.Trail.Id);
+                    await _trails.UpdateAsync(Globals.ApiTrialUrl, trailVM.Trail, trailVM.Trail.Id,HttpContext.Session.GetString("JWToken"));
                 }
 
                 return RedirectToAction(nameof(Index));
@@ -77,13 +81,18 @@ namespace ParkyWeb.Controllers
         
         public async Task<IActionResult> GetAllTrails()
         {
-            return Json(new {data = await _trails.GetAllAsync(Globals.ApiTrialUrl)});
+            return Json(new
+            {
+                data = await _trails.GetAllAsync(Globals.ApiTrialUrl,
+                    HttpContext.Session.GetString("JWToken"))
+            });
         }
         
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
-            var status = await _trails.DeleteAsync(Globals.ApiTrialUrl,id);
+            var status = await _trails.DeleteAsync(url:Globals.ApiTrialUrl,id:id,HttpContext.Session.GetString("JWToken"));
             if (status)
             {
                 return Json(new {success = true, message = "Successfully deleted!"});

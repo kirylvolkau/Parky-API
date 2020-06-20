@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,6 +35,16 @@ namespace ParkyWeb
             services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddHttpClient();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+                {
+                    options.Cookie.HttpOnly = true;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                    options.LoginPath = "/Home/Login";
+                    options.AccessDeniedPath = "/Home/AccessDenied";
+                    options.SlidingExpiration = true;
+                });
+            services.AddAuthorization();
+            services.AddHttpContextAccessor();
             services.AddSession(options =>
                 {
                     options.IdleTimeout = TimeSpan.FromMinutes(10);
@@ -62,8 +73,9 @@ namespace ParkyWeb
             app.UseRouting();
 
             app.UseSession();
+            
+            app.UseAuthentication();
             app.UseAuthorization();
-            //app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {

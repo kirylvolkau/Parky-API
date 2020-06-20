@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ using ParkyWeb.Repository.IRepository;
 
 namespace ParkyWeb.Repository
 {
-    public class Repository<T> : IRepository<T> where T:class
+    public abstract class Repository<T> : IRepository<T> where T:class
     {
         private IHttpClientFactory _clientFactory;
 
@@ -20,10 +21,14 @@ namespace ParkyWeb.Repository
             _clientFactory = clientFactory;
         }
         
-        public async Task<T> GetAsync(string url, int id)
+        public async Task<T> GetAsync(string url, int id, string token="")
         {
             var request = new HttpRequestMessage(HttpMethod.Get, url+id);
             var client = _clientFactory.CreateClient();
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
             var response = await client.SendAsync(request);
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -33,10 +38,14 @@ namespace ParkyWeb.Repository
             return null;
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(string url)
+        public async Task<IEnumerable<T>> GetAllAsync(string url, string token="")
         {
             var request = new HttpRequestMessage(HttpMethod.Get, url);
             var client = _clientFactory.CreateClient();
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
             var response = await client.SendAsync(request);
             if (response.StatusCode == HttpStatusCode.OK)
             {
@@ -47,7 +56,7 @@ namespace ParkyWeb.Repository
             return null;
         }
 
-        public async Task<bool> CreateAsync(string url, T objToCreate)
+        public async Task<bool> CreateAsync(string url, T objToCreate, string token = "")
         {
            var request = new HttpRequestMessage(HttpMethod.Post, url);
            if (objToCreate != null)
@@ -61,19 +70,29 @@ namespace ParkyWeb.Repository
                return false;
            }
            var client = _clientFactory.CreateClient();
+           if (!string.IsNullOrEmpty(token))
+           {
+               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+           }
+           
            var response = await client.SendAsync(request);
            return response.StatusCode == HttpStatusCode.NoContent;
         }
 
-        public async Task<bool> DeleteAsync(string url, int id)
+        public async Task<bool> DeleteAsync(string url, int id, string token="")
         {
             var request = new HttpRequestMessage(HttpMethod.Delete, url+id);
             var client = _clientFactory.CreateClient();
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
+            
             var response = await client.SendAsync(request);
             return response.StatusCode == HttpStatusCode.NoContent;
         }
 
-        public async Task<bool> UpdateAsync(string url, T objToUpdate, int id)
+        public async Task<bool> UpdateAsync(string url, T objToUpdate, int id, string token="")
         {
             var request = new HttpRequestMessage(HttpMethod.Patch, url+id);
             if (objToUpdate != null)
@@ -87,6 +106,10 @@ namespace ParkyWeb.Repository
                 return false;
             }
             var client = _clientFactory.CreateClient();
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            }
             var response = await client.SendAsync(request);
             return response.StatusCode == HttpStatusCode.NoContent;
         }

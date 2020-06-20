@@ -1,5 +1,5 @@
 # API for National Parks (Parky)
-[![Project Status: Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![Project Status: Active](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#active)
 ## Technology stack : 
 1. ASP.NET Core WebAPI
 2. Entity Framework Core
@@ -21,10 +21,7 @@
 * Authorization with JWT tokens added.
 * Some parts are simply commented so in future I can find and reuse them.
 * ASP.NET Core MVC project `ParkyWeb` is used for API consumption.
-<br/> **Upcoming:** <br/>
-
-* Localization will be added.
-* MVC part for users will be added.
+* MVC part for users added.
 
 ## MVC part :
 * Currently it supports all API methods for National Parks and Trails. 
@@ -43,9 +40,11 @@ data is displayed -> delete button is clicked -> User is asked to confirm -> if 
 ```
 All `NON-GET` (`PATCH`,`POST`,`DELETE`) requests to the API are sent using `Javascript`, as it is more convenient than using `HTTPClient` in the View. Also, it simplifies data processing in `js` afterwards. 
 <br/>
+Moreover, Cookies were added + for editing / deleting parks and trails user should be authorized.
+<br/>
 ![WAIT FOR GIF TO LOAD...](/git-src/parky.gif)
 <br/>
-Similar workflow is correspondent for Trails.
+Similar workflow is correspondent for Trails. <br/>
 ## API part : 
 This project contains small API for information about national parks in the US.
 Currently it has endpoints for `CRUD` operations on National Parks and Trails. <br/>
@@ -53,7 +52,7 @@ Currently it has endpoints for `CRUD` operations on National Parks and Trails. <
 * `Automapper` is used to convert DTO objects to the Models and vice versa.
 * In migrations a simple database seeding is performed.
 * For documentation `Swagger` was used (with XML commenting).
-* For authentication JWT tokens were used with `Role` claims. It works only for the `GetTrail?id=`, since it was just simple demonstration.
+* For authentication and authorization JWT tokens were used with `Role` claims. 
 * Also, there was added functionality for registering and authenticating users using `POST` requests. Passwords are stored in non-encrypted from in the database for the simplicity. 
 Those are OpenAPI specs for versioning (version 2 was added for simple demonstration): <br/>
 **Version 1:** <br/>

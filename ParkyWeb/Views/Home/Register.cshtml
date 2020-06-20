@@ -5,7 +5,14 @@
 
 <h1>Register</h1>
 <form method="POST" class="form-group">
-    <input type="text" asp-for="Username" placeholder="Username..." class="form-control">
-    <input type="password" asp-for="Password" placeholder="Password..." class="form-control">
+    <div class="row" style="margin-bottom: 10px">
+        <div class="col-sm-5">
+            <input type="text" asp-for="Username" placeholder="Username..." class="form-control">
+        </div>
+        <div class="col-sm-5">
+            <input type="password" asp-for="Password" placeholder="Password..." class="form-control">
+        </div>
+    </div>
     <button type="submit" value="Submit" class="btn btn-success">Submit</button>
+    
 </form>

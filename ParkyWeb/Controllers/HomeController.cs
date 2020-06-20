@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -32,8 +35,8 @@ namespace ParkyWeb.Controllers
         {
             var index = new IndexViewModel()
             {
-                Parks = await _parks.GetAllAsync(Globals.ApiNpUrl),
-                Trails = await _trails.GetAllAsync(Globals.ApiTrialUrl)
+                Parks = await _parks.GetAllAsync(Globals.ApiNpUrl, HttpContext.Session.GetString("JWToken")),
+                Trails = await _trails.GetAllAsync(Globals.ApiTrialUrl, HttpContext.Session.GetString("JWToken"))
             };
             return View(index);
         }
@@ -60,6 +63,14 @@ namespace ParkyWeb.Controllers
             {
                 return View();
             }
+            
+            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+            identity.AddClaim(new Claim(ClaimTypes.Name, userObj.Username));
+            identity.AddClaim(new Claim(ClaimTypes.Role, userObj.Role));
+            var principle = new ClaimsPrincipal(identity);
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principle);
+            
             HttpContext.Session.SetString("JWToken", userObj.Token);
             return RedirectToAction("Index");
         }
@@ -82,12 +93,17 @@ namespace ParkyWeb.Controllers
             return RedirectToAction("Index");
         }
         
-        [HttpGet]
-        [ValidateAntiForgeryToken]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync();
             HttpContext.Session.SetString("JWToken",string.Empty);
             return RedirectToAction("Index");
+        }
+        
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
